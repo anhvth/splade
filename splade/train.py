@@ -8,7 +8,7 @@ from torch.utils import data
 from conf.CONFIG_CHOICE import CONFIG_NAME, CONFIG_PATH
 from .datasets.dataloaders import CollectionDataLoader, SiamesePairsDataLoader, DistilSiamesePairsDataLoader
 from .datasets.datasets import PairsDatasetPreLoad, DistilPairsDatasetPreLoad, MsMarcoHardNegatives, \
-    CollectionDatasetPreLoad
+    CollectionDatasetPreLoad, PairsDatasetPreLoadLazy
 from .losses.regularization import init_regularizer, RegWeightScheduler
 from .models.models_utils import get_model
 from .optim.bert_optim import init_simple_bert_optim
@@ -100,6 +100,9 @@ def train(exp_dict: DictConfig):
 
     if exp_dict["data"].get("type", "") == "triplets":
         data_train = PairsDatasetPreLoad(data_dir=exp_dict["data"]["TRAIN_DATA_DIR"])
+        train_mode = "triplets"
+    elif exp_dict["data"].get("type", "") == "triplets_lazy":
+        data_train = PairsDatasetPreLoadLazy(data_dir=exp_dict["data"]["TRAIN_DATA_DIR"])
         train_mode = "triplets"
     elif exp_dict["data"].get("type", "") == "triplets_with_distil":
         data_train = DistilPairsDatasetPreLoad(data_dir=exp_dict["data"]["TRAIN_DATA_DIR"])

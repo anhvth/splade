@@ -1,0 +1,12 @@
+# @package data
+
+type: triplets
+
+TRAIN_DATA_DIR: data/msmarco_vi_toy/triplets
+VALIDATION_SIZE_FOR_LOSS: 500
+VALIDATION_FULL_RANKING:
+  D_COLLECTION_PATH: data/msmarco_vi_toy/val_collection
+  Q_COLLECTION_PATH: data/msmarco_vi_toy/val_queries
+  QREL_PATH: data/msmarco_vi_toy/qrel/qrel.json
+  TOP_K: 500
+
